@@ -1,91 +1,27 @@
+import React from "react";
+
 interface SpinnerProps {
-  size?: number;
-  color?: string;
+  className?: string;
+  size?: "sm" | "md" | "lg";
 }
 
-const bars = [
-  {
-    animationDelay: "-1.2s",
-    transform: "rotate(.0001deg) translate(146%)"
-  },
-  {
-    animationDelay: "-1.1s",
-    transform: "rotate(30deg) translate(146%)"
-  },
-  {
-    animationDelay: "-1.0s",
-    transform: "rotate(60deg) translate(146%)"
-  },
-  {
-    animationDelay: "-0.9s",
-    transform: "rotate(90deg) translate(146%)"
-  },
-  {
-    animationDelay: "-0.8s",
-    transform: "rotate(120deg) translate(146%)"
-  },
-  {
-    animationDelay: "-0.7s",
-    transform: "rotate(150deg) translate(146%)"
-  },
-  {
-    animationDelay: "-0.6s",
-    transform: "rotate(180deg) translate(146%)"
-  },
-  {
-    animationDelay: "-0.5s",
-    transform: "rotate(210deg) translate(146%)"
-  },
-  {
-    animationDelay: "-0.4s",
-    transform: "rotate(240deg) translate(146%)"
-  },
-  {
-    animationDelay: "-0.3s",
-    transform: "rotate(270deg) translate(146%)"
-  },
-  {
-    animationDelay: "-0.2s",
-    transform: "rotate(300deg) translate(146%)"
-  },
-  {
-    animationDelay: "-0.1s",
-    transform: "rotate(330deg) translate(146%)"
-  }
-];
+export const Spinner: React.FC<SpinnerProps> = ({ 
+  className = "", 
+  size = "md" 
+}) => {
+  const sizeClasses = {
+    sm: "w-4 h-4",
+    md: "w-6 h-6", 
+    lg: "w-8 h-8"
+  };
 
-export const Spinner = ({ size = 20, color = "#8f8f8f" }: SpinnerProps) => {
   return (
-    <div style={{ width: size, height: size }} className="relative">
-      <style>
-        {`
-          .spinner-bar {
-            animation: spin 1.2s linear infinite;
-          }
-          
-          @keyframes spin {
-              0% {
-                  opacity: 0.15;
-              }
-              100% {
-                  opacity: 1;
-              }
-          }
-        `}
-      </style>
-      <div className="relative top-1/2 left-1/2" style={{ width: size, height: size }}>
-        {bars.map((item, index) => (
-          <div
-            key={index}
-            className="absolute h-[8%] w-[24%] -left-[10%] -top-[3.9%] rounded-[5px] spinner-bar"
-            style={{ 
-              backgroundColor: color, 
-              animationDelay: item.animationDelay,
-              transform: item.transform
-            }}
-          />
-        ))}
-      </div>
+    <div 
+      className={`${sizeClasses[size]} animate-spin rounded-full border-2 border-gray-300 border-t-blue-600 ${className}`}
+      role="status"
+      aria-label="Loading"
+    >
+      <span className="sr-only">Loading...</span>
     </div>
   );
 };
